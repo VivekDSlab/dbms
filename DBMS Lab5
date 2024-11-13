@@ -1,0 +1,54 @@
+create database emp5;
+use emp5;
+create table department(depyno int primary key,dname varchar(30),dloc varchar(30));
+create table emplopyee(empno int primary key,ename varchar(30),mgr_no int,hiredate date,sal int,depyno int,foreign key(depyno)references department(depyno));
+create table incentives(empno int, foreign key(empno)references emplopyee(empno),incentive_date date primary key,incentive_amount int );
+create table project(pno int primary key,ploc varchar(30),pname varchar(30));
+create table assigned(empno int ,foreign key(empno)references emplopyee(empno),
+pno int ,foreign key(pno)references project(pno),job_role varchar(30));
+
+insert into department values( 01,"domastic management","mysuru");
+insert into department values( 02,"international management","bangaluru");
+insert into department values( 03,"production","Hyderabad,");
+insert into department values( 04,"business","delhi");
+insert into department values( 05,"technical","chikkaballapur");
+
+
+insert into emplopyee values( 1234,"venkat",001,"2023-05-20",90000,01);
+insert into emplopyee values( 1235,"vinay",001,"2024-07-21",90000,02);
+insert into emplopyee values( 1236,"venuth",001,"2017-06-22",90000,02);
+insert into emplopyee values( 1237,"nihar",001,"2019-12-23",90000,03);
+insert into emplopyee values( 1238,"vaibhav",001,"2018-10-24",90000,04);
+insert into emplopyee values( 1239,"varun",001,"2021-04-25",90000,05);
+insert into emplopyee values( 1231,"ganesh",001,"2022-02-16",90000,05);
+
+insert into incentives values( 1234,"2024-04-23",20002);
+insert into incentives values( 1235,"2023-03-22",20341);
+insert into incentives values( 1235,"2022-02-21",50012);
+insert into incentives values( 1236,"2021-01-20",40000);
+insert into incentives values( 1237,"2020-05-29",23000);
+insert into incentives values( 1238,"2019-06-28",12000);
+insert into incentives values( 1239,"2018-07-27",8000);
+insert into incentives values( 1231,"2017-08-26",41000);
+
+insert into project values( 06,"bangaluru","web development");
+insert into project values( 07,"Hyderabad,","wedding planing");
+insert into project values( 08,"mysuru","construction");
+insert into project values( 09,"Hyderabad,","data hub");
+insert into project values( 10,"delhi","brige building");
+insert into project values( 11,"chikkaballapur","syber security");
+
+insert into assigned values( 1234,06,"mannager");
+insert into assigned values( 1235,06,"worker");
+insert into assigned values( 1236,07,"superviser");
+insert into assigned values( 1237,08,"lead");
+insert into assigned values( 1238,09,"mannager");
+insert into assigned values( 1239,10,"lead");
+insert into assigned values( 1231,11,"superviser");
+insert into assigned values( 1239,11,"worker");
+select*from  department;
+select*from assigned;
+SELECT empno
+FROM assigned A
+JOIN project P ON A.pno = P.pno
+WHERE P.ploc IN ('bangaluru', 'Hyderabad', 'mysuru');
